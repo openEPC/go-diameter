@@ -143,18 +143,20 @@ func (p *Parser) String() string {
 	var b bytes.Buffer
 	for _, f := range p.file {
 		for _, app := range f.App {
-			fmt.Fprintf(&b, "Application Id: %d\n", app.ID)
-			fmt.Fprintf(&b, "\tVendors:\n")
-			for _, vendor := range app.Vendor {
-				fmt.Fprintf(&b, "\t\tId=%d Name=%s\n", vendor.ID, vendor.Name)
-			}
-			fmt.Fprintf(&b, "\tCommands:\n")
-			for _, cmd := range app.Command {
-				printCommand(&b, cmd)
-			}
-			fmt.Fprintf(&b, "\tAVPs:\n")
-			for _, avp := range app.AVP {
-				printAVP(&b, avp)
+			if app.ID == 16777251 {
+				fmt.Fprintf(&b, "Application Id: %d\n", app.ID)
+				fmt.Fprintf(&b, "\tVendors:\n")
+				for _, vendor := range app.Vendor {
+					fmt.Fprintf(&b, "\t\tId=%d Name=%s\n", vendor.ID, vendor.Name)
+				}
+				fmt.Fprintf(&b, "\tCommands:\n")
+				for _, cmd := range app.Command {
+					printCommand(&b, cmd)
+				}
+				fmt.Fprintf(&b, "\tAVPs:\n")
+				for _, avp := range app.AVP {
+					printAVP(&b, avp)
+				}
 			}
 		}
 	}

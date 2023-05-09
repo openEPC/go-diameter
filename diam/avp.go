@@ -82,6 +82,9 @@ func (a *AVP) DecodeFromBytes(data []byte, application uint32, dictionary *dict.
 	if err != nil && dictAVP == nil {
 		return err
 	}
+	if err != nil {
+		fmt.Printf("OLOLO Failed to find AVP in dictionary: %s", err.Error())
+	}
 	bodyLen := a.Length - hdrLength
 	if n := len(payload); n < bodyLen {
 		return fmt.Errorf(
