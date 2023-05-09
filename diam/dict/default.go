@@ -5556,6 +5556,7 @@ var tgpps6aXML = `<?xml version="1.0" encoding="UTF-8"?>
                 <rule avp="MIP6-Agent-Info" required="false" max="1"/>
                 <rule avp="Visited-Network-Identifier" required="false" max="1"/>
                 <rule avp="PDN-GW-Allocation-Type" required="false" max="1"/>
+				<rule avp="Interworking-5GS-Indicator" required="false" max="1"/>
                 <rule avp="TGPP-Charging-Characteristics" required="false" max="1"/>
                 <rule avp="AMBR" required="false" max="1"/>
                 <rule avp="Specific-APN-Info" required="false"/>
@@ -5600,7 +5601,14 @@ var tgpps6aXML = `<?xml version="1.0" encoding="UTF-8"?>
                 <item code="1" name="DYNAMIC"/>
             </data>
         </avp>
-
+		
+		<avp name="Interworking-5GS-Indicator" code="1706" must="M,V" may-encrypt="N" vendor-id="10415">
+            <data type="Enumerated">
+                <item code="0" name="NOT-SUBSCRIBED"/>
+                <item code="1" name="SUBSCRIBED"/>
+            </data>
+        </avp>
+		
         <avp name="SIPTO-Permission" code="1613" must="V" must-not="M" may-encrypt="N" vendor-id="10415">
             <data type="Enumerated">
                 <item code="0" name="SIPTO_ALLOWED"/>
