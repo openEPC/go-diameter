@@ -6014,7 +6014,7 @@ var tgpps6aXML = `<?xml version="1.0" encoding="UTF-8"?>
             </data>
         </avp>
 
-        <avp name="Service-Selection" code="493" must="M" may="P" must-not="V" may-encrypt="Y" vendor-id="10415">
+        <avp name="Service-Selection" code="493" must="M" may="P" must-not="V" may-encrypt="Y">
             <data type="UTF8String"/>
         </avp>
 
