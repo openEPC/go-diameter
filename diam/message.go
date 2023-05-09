@@ -74,6 +74,7 @@ func ReadMessage(reader io.Reader, dictionary *dict.Parser) (*Message, error) {
 	}
 	m.stream = stream
 	if err = m.readBody(reader, buf, cmd, stream); err != nil {
+		fmt.Printf("readBody err: %v\n", err.Error())
 		return nil, err
 	}
 	return m, nil
@@ -102,13 +103,16 @@ func (m *Message) readHeader(r io.Reader, buf *bytes.Buffer) (cmd *dict.Command,
 	if err != nil {
 		return nil, stream, err
 	}
+	fmt.Printf("m.Header: %+v\n", *m.Header)
 	cmd, err = m.Dictionary().FindCommand(
 		m.Header.ApplicationID,
 		m.Header.CommandCode,
 	)
 	if err != nil {
+		fmt.Printf("cmd FindCommand err: %v\n", err.Error())
 		return nil, stream, err
 	}
+	fmt.Printf("cmd: %+v\n", *cmd)
 	return cmd, stream, nil
 }
 
@@ -153,6 +157,7 @@ func (m *Message) decodeAVPs(b []byte) error {
 	for n := 0; n < len(b); {
 		a, err = DecodeAVP(b[n:], m.Header.ApplicationID, m.Dictionary())
 		if err != nil {
+			fmt.Printf("Failed to decode AVP: %s\n", err.Error())
 			return fmt.Errorf("Failed to decode AVP: %s", err)
 		}
 		m.AVP = append(m.AVP, a)
@@ -424,7 +429,6 @@ func avpsWithPath(avps []*AVP, path []uint32) []*AVP {
 //	avps, err := m.FindAVPs(264)
 //	avps, err := m.FindAVPs(avp.OriginHost)
 //	avps, err := m.FindAVPs("Origin-Host")
-//
 func (m *Message) FindAVPs(code interface{}, vendorID uint32) ([]*AVP, error) {
 	dictAVP, err := m.Dictionary().FindAVPWithVendor(m.Header.ApplicationID, code, vendorID)
 
@@ -443,7 +447,6 @@ func (m *Message) FindAVPs(code interface{}, vendorID uint32) ([]*AVP, error) {
 //	avp, err := m.FindAVP(264)
 //	avp, err := m.FindAVP(avp.OriginHost)
 //	avp, err := m.FindAVP("Origin-Host")
-//
 func (m *Message) FindAVP(code interface{}, vendorID uint32) (*AVP, error) {
 	dictAVP, err := m.Dictionary().FindAVPWithVendor(m.Header.ApplicationID, code, vendorID)
 
@@ -468,7 +471,6 @@ func (m *Message) FindAVP(code interface{}, vendorID uint32) (*AVP, error) {
 //	avp, err := m.FindAVPsWithPath([]interface{}{264})
 //	avp, err := m.FindAVPsWithPath([]interface{}{avp.OriginHost})
 //	avp, err := m.FindAVPsWithPath([]interface{}{"Origin-Host"})
-//
 func (m *Message) FindAVPsWithPath(path []interface{}, vendorID uint32) ([]*AVP, error) {
 	pathCodes := make([]uint32, len(path))
 	for i, pathCode := range path {

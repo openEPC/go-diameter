@@ -82,6 +82,7 @@ func MakeUnknownAVP(appid, code, vendorID uint32) *AVP {
 //
 // FindAVPWithVendor must never be called concurrently with LoadFile or Load.
 func (p *Parser) FindAVPWithVendor(appid uint32, code interface{}, vendorID uint32) (*AVP, error) {
+	fmt.Printf("FindAVPWithVendor: appid=%d, code=%v, vendorID=%d\n", appid, code, vendorID)
 	//p.mu.Lock()
 	//defer p.mu.Unlock()
 	var (
