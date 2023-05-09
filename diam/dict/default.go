@@ -36,6 +36,8 @@ func init() {
 			panic(fmt.Sprintf("Cannot load %s dictionary: %s", dict.name, err))
 		}
 	}
+
+	fmt.Printf("Default dictionary loaded %s\n", Default.String())
 }
 
 var baseXML = `<?xml version="1.0" encoding="UTF-8"?>
