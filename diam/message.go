@@ -103,7 +103,6 @@ func (m *Message) readHeader(r io.Reader, buf *bytes.Buffer) (cmd *dict.Command,
 	if err != nil {
 		return nil, stream, err
 	}
-	fmt.Printf("m.Header: %+v\n", *m.Header)
 	cmd, err = m.Dictionary().FindCommand(
 		m.Header.ApplicationID,
 		m.Header.CommandCode,
@@ -112,7 +111,6 @@ func (m *Message) readHeader(r io.Reader, buf *bytes.Buffer) (cmd *dict.Command,
 		fmt.Printf("cmd FindCommand err: %v\n", err.Error())
 		return nil, stream, err
 	}
-	fmt.Printf("cmd: %+v\n", *cmd)
 	return cmd, stream, nil
 }
 
