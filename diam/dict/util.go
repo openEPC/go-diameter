@@ -95,7 +95,6 @@ retry:
 	case string:
 		avp, ok = p.avpname[nameIdx{appid, codeVal, vendorID}]
 		if !ok && appid == 0 {
-			fmt.Printf("Could not find AVP %T(%q) for Vendor: %d\n", codeVal, codeVal, vendorID)
 			err = fmt.Errorf("Could not find AVP %T(%q) for Vendor: %d", codeVal, codeVal, vendorID)
 		}
 	case uint32:
